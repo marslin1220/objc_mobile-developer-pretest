@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 
-#import <AFNetworking.h>
+#import <AFNetworking/AFNetworking.h>
 
 static NSString *const dataSourceURL = @"http://www.mocky.io/v2/5a97c59c30000047005c1ed2";
 
@@ -27,28 +27,19 @@ static NSString *const dataSourceURL = @"http://www.mocky.io/v2/5a97c59c30000047
 }
 
 - (void)fetchDramaList {
+    
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
-
-    NSURL *URL = [NSURL URLWithString:dataSourceURL];
-    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
-
-    NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request
-        uploadProgress:^(NSProgress *_Nonnull uploadProgress) {
-
-        }
-        downloadProgress:^(NSProgress *_Nonnull downloadProgress) {
-
-        }
-        completionHandler:^(NSURLResponse *_Nonnull response, id _Nullable responseObject, NSError *_Nullable error) {
-          if (error) {
-              NSLog(@"Error: %@", error);
-          } else {
-              NSLog(@"%@ %@", response, responseObject);
-          }
-        }];
-
-    [dataTask resume];
+    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithSessionConfiguration:configuration];
+    manager.responseSerializer = [[AFJSONResponseSerializer alloc] init];
+    
+    [manager GET:dataSourceURL
+      parameters:nil
+        progress:nil
+         success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+             NSLog(@"%@", responseObject);
+         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+             NSLog(@"%@", error);
+         }];
 }
 
 - (void)didReceiveMemoryWarning {
