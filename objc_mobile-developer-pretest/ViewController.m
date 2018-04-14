@@ -9,6 +9,7 @@
 #import "ViewController.h"
 
 #import <AFNetworking/AFNetworking.h>
+#import <AFNetworking/UIImageView+AFNetworking.h>
 
 static NSString *const dataSourceURL = @"http://www.mocky.io/v2/5a97c59c30000047005c1ed2";
 
@@ -80,13 +81,12 @@ static NSString *const dataSourceURL = @"http://www.mocky.io/v2/5a97c59c30000047
     cell.textLabel.text = dramaInfo[@"name"];
     cell.detailTextLabel.text = [NSString stringWithFormat:@"rating: %@, created at: %@", dramaInfo[@"rating"], dramaInfo[@"created_at"]];
 
-    NSString *imageThumbnailURLString = dramaInfo[@"thumb"];
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(36, 50), NO, 0.0);
+    UIImage *blank = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
 
-    NSURL *imageURL = [NSURL URLWithString:imageThumbnailURLString];
-    NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
-    UIImage *image = [UIImage imageWithData:imageData];
-
-    cell.imageView.image = image;
+    NSURL *imageURL = [NSURL URLWithString:dramaInfo[@"thumb"]];
+    [cell.imageView setImageWithURL:imageURL placeholderImage:blank];
 }
 
 #pragma mark - UITableViewDelegate
