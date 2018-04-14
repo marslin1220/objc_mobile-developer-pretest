@@ -37,6 +37,10 @@ static NSString *const dataSourceURL = @"http://www.mocky.io/v2/5a97c59c30000047
         progress:nil
          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
              NSLog(@"%@", responseObject);
+             if ([responseObject isKindOfClass:[NSDictionary class]]) {
+                 self.dramaList = responseObject[@"data"];
+                 [self.tableView reloadData];
+             }
          } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
              NSLog(@"%@", error);
          }];
@@ -59,10 +63,10 @@ static NSString *const dataSourceURL = @"http://www.mocky.io/v2/5a97c59c30000047
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"dramaInfo" forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"dramaInfo"];
 
     if (NULL == cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"dramaInfo"];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"dramaInfo"];
     }
 
     [self configureCell:cell forRowAtIndexPath:indexPath];
@@ -71,11 +75,18 @@ static NSString *const dataSourceURL = @"http://www.mocky.io/v2/5a97c59c30000047
 }
 
 - (void)configureCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSDictionary *dramaInfo = self.dramaList[indexPath.row];
+    NSDictionary *dramaInfo = [self.dramaList objectAtIndex:indexPath.row];
 
     cell.textLabel.text = dramaInfo[@"name"];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"rating: %@\ncreated at: %@", dramaInfo[@"rating"], dramaInfo[@"created_at"]];
-    cell.imageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:dramaInfo[@"thumb"]]];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"rating: %@, created at: %@", dramaInfo[@"rating"], dramaInfo[@"created_at"]];
+
+    NSString *imageThumbnailURLString = dramaInfo[@"thumb"];
+
+    NSURL *imageURL = [NSURL URLWithString:imageThumbnailURLString];
+    NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
+    UIImage *image = [UIImage imageWithData:imageData];
+
+    cell.imageView.image = image;
 }
 
 #pragma mark - UITableViewDelegate
