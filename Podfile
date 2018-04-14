@@ -8,5 +8,6 @@ target 'objc_mobile-developer-pretest' do
   # Pods for objc_mobile-developer-pretest
 
   pod 'AFNetworking', '~> 3.0'
+  pod 'MagicalRecord'
 
 end
