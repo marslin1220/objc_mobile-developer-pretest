@@ -13,6 +13,7 @@
 		A25DCFB6207D146B0011F42F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A25DCFB5207D146B0011F42F /* Assets.xcassets */; };
 		A25DCFB9207D146B0011F42F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A25DCFB7207D146B0011F42F /* LaunchScreen.storyboard */; };
 		A25DCFBC207D146B0011F42F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A25DCFBB207D146B0011F42F /* main.m */; };
+		A2FF4EB520960DC0004BDF6C /* DramaListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A2FF4EB420960DC0004BDF6C /* DramaListCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,8 @@
 		A25DCFB8207D146B0011F42F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A25DCFBA207D146B0011F42F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A25DCFBB207D146B0011F42F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		A2FF4EB320960DC0004BDF6C /* DramaListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DramaListCell.h; sourceTree = "<group>"; };
+		A2FF4EB420960DC0004BDF6C /* DramaListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DramaListCell.m; sourceTree = "<group>"; };
 		B22A97662D8E47BE4C9A3821 /* libPods-objc_mobile-developer-pretest.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-objc_mobile-developer-pretest.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED35B014EF87540ABB3CC41E /* Pods-objc_mobile-developer-pretest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-objc_mobile-developer-pretest.debug.xcconfig"; path = "Pods/Target Support Files/Pods-objc_mobile-developer-pretest/Pods-objc_mobile-developer-pretest.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -63,16 +66,42 @@
 		A25DCFAB207D146B0011F42F /* objc_mobile-developer-pretest */ = {
 			isa = PBXGroup;
 			children = (
+				A2FF4EB120960D3E004BDF6C /* Models */,
+				A2FF4EB020960D30004BDF6C /* Views */,
+				A2FF4EB220960D4C004BDF6C /* Controllers */,
 				A25DCFAC207D146B0011F42F /* AppDelegate.h */,
 				A25DCFAD207D146B0011F42F /* AppDelegate.m */,
-				A25DCFAF207D146B0011F42F /* ViewController.h */,
-				A25DCFB0207D146B0011F42F /* ViewController.m */,
 				A25DCFB5207D146B0011F42F /* Assets.xcassets */,
 				A25DCFB7207D146B0011F42F /* LaunchScreen.storyboard */,
 				A25DCFBA207D146B0011F42F /* Info.plist */,
 				A25DCFBB207D146B0011F42F /* main.m */,
 			);
 			path = "objc_mobile-developer-pretest";
+			sourceTree = "<group>";
+		};
+		A2FF4EB020960D30004BDF6C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A2FF4EB320960DC0004BDF6C /* DramaListCell.h */,
+				A2FF4EB420960DC0004BDF6C /* DramaListCell.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		A2FF4EB120960D3E004BDF6C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		A2FF4EB220960D4C004BDF6C /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				A25DCFAF207D146B0011F42F /* ViewController.h */,
+				A25DCFB0207D146B0011F42F /* ViewController.m */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		A6A8D41ACFE251B0F08B134A /* Frameworks */ = {
@@ -103,8 +132,6 @@
 				A25DCFA5207D146B0011F42F /* Sources */,
 				A25DCFA6207D146B0011F42F /* Frameworks */,
 				A25DCFA7207D146B0011F42F /* Resources */,
-				8B989A9A5395BD33B298ADC7 /* [CP] Embed Pods Frameworks */,
-				90327B0E8132E09D37A2E0E9 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -179,36 +206,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		8B989A9A5395BD33B298ADC7 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-objc_mobile-developer-pretest/Pods-objc_mobile-developer-pretest-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		90327B0E8132E09D37A2E0E9 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-objc_mobile-developer-pretest/Pods-objc_mobile-developer-pretest-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -219,6 +216,7 @@
 				A25DCFB1207D146B0011F42F /* ViewController.m in Sources */,
 				A25DCFBC207D146B0011F42F /* main.m in Sources */,
 				A25DCFAE207D146B0011F42F /* AppDelegate.m in Sources */,
+				A2FF4EB520960DC0004BDF6C /* DramaListCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

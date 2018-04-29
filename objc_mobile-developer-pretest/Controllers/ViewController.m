@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "DramaListCell.h"
 
 #import <AFNetworking/AFNetworking.h>
 #import <AFNetworking/UIImageView+AFNetworking.h>
@@ -24,27 +25,30 @@ static NSString *const dataSourceURL = @"http://www.mocky.io/v2/5a97c59c30000047
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    [self.tableView registerClass:[DramaListCell class] forCellReuseIdentifier:@"dramaInfo"];
+
     [self fetchDramaList];
 }
 
 - (void)fetchDramaList {
-    
+
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithSessionConfiguration:configuration];
     manager.responseSerializer = [[AFJSONResponseSerializer alloc] init];
-    
+
     [manager GET:dataSourceURL
-      parameters:nil
+        parameters:nil
         progress:nil
-         success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-             NSLog(@"%@", responseObject);
-             if ([responseObject isKindOfClass:[NSDictionary class]]) {
-                 self.dramaList = responseObject[@"data"];
-                 [self.tableView reloadData];
-             }
-         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-             NSLog(@"%@", error);
-         }];
+        success:^(NSURLSessionDataTask *_Nonnull task, id _Nullable responseObject) {
+            NSLog(@"%@", responseObject);
+            if ([responseObject isKindOfClass:[NSDictionary class]]) {
+                self.dramaList = responseObject[@"data"];
+                [self.tableView reloadData];
+            }
+        }
+        failure:^(NSURLSessionDataTask *_Nullable task, NSError *_Nonnull error) {
+            NSLog(@"%@", error);
+        }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -64,10 +68,10 @@ static NSString *const dataSourceURL = @"http://www.mocky.io/v2/5a97c59c30000047
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"dramaInfo"];
+    DramaListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"dramaInfo"];
 
     if (NULL == cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"dramaInfo"];
+        cell = [DramaListCell new];
     }
 
     [self configureCell:cell forRowAtIndexPath:indexPath];
@@ -75,18 +79,19 @@ static NSString *const dataSourceURL = @"http://www.mocky.io/v2/5a97c59c30000047
     return cell;
 }
 
-- (void)configureCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)configureCell:(DramaListCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     NSDictionary *dramaInfo = [self.dramaList objectAtIndex:indexPath.row];
 
-    cell.textLabel.text = dramaInfo[@"name"];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"rating: %@, created at: %@", dramaInfo[@"rating"], dramaInfo[@"created_at"]];
+    cell.dramaName.text = dramaInfo[@"name"];
+    cell.rating.text = [NSString stringWithFormat:@"rating: %@", dramaInfo[@"rating"]];
+    cell.createdDate.text = [NSString stringWithFormat:@"created at: %@", dramaInfo[@"created_at"]];
 
     UIGraphicsBeginImageContextWithOptions(CGSizeMake(36, 50), NO, 0.0);
     UIImage *blank = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
 
     NSURL *imageURL = [NSURL URLWithString:dramaInfo[@"thumb"]];
-    [cell.imageView setImageWithURL:imageURL placeholderImage:blank];
+    [cell.thumbnail setImageWithURL:imageURL placeholderImage:blank];
 }
 
 #pragma mark - UITableViewDelegate

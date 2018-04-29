@@ -9,5 +9,6 @@ target 'objc_mobile-developer-pretest' do
 
   pod 'AFNetworking', '~> 3.0'
   pod 'MagicalRecord'
+  pod 'Masonry'
 
 end

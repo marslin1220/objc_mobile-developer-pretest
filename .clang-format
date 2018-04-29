@@ -6,3 +6,5 @@ ObjCSpaceAfterProperty: true
 ObjCSpaceBeforeProtocolList: true
 UseTab: Never
 IndentCaseLabels: true
+ObjCBlockIndentWidth: 4
+IndentCaseLabels: true
